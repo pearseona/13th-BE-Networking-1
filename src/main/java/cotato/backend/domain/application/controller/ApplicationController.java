@@ -1,6 +1,7 @@
 package cotato.backend.domain.application.controller;
 
 import cotato.backend.domain.application.dto.ApplicationRequest;
+import cotato.backend.domain.application.dto.ApplicationStatsResponse;
 import cotato.backend.domain.application.service.ApplicationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -30,5 +31,11 @@ public class ApplicationController {
             @PageableDefault(size = 10, sort = "applicationTime", direction = Sort.Direction.ASC) Pageable pageable) {
 
         return ResponseEntity.ok(applicationService.findAllApplications(period, pageable));
+    }
+
+    /* 파트별 지원자 조회 API */
+    @GetMapping("/stats")
+    public ResponseEntity<ApplicationStatsResponse> getStats(@RequestParam int period) {
+        return ResponseEntity.ok(applicationService.getStats(period));
     }
 }

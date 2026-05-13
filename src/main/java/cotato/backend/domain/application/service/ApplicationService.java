@@ -2,9 +2,11 @@ package cotato.backend.domain.application.service;
 
 import cotato.backend.domain.applicant.repository.ApplicantRepository;
 import cotato.backend.domain.application.dto.ApplicationRequest;
+import cotato.backend.domain.application.dto.ApplicationStatsResponse;
 import cotato.backend.domain.application.repository.ApplicationRepository;
 import cotato.backend.domain.entity.Applicant;
 import cotato.backend.domain.entity.Application;
+import cotato.backend.domain.entity.enums.Part;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -52,5 +54,25 @@ public class ApplicationService {
             return applicationRepository.findAllByPeriod(period, pageable);
         }
         return applicationRepository.findAll(pageable);
+    }
+
+    /* 파트별 지원자 조회 로직 */
+    @Transactional(readOnly = true)
+    public ApplicationStatsResponse getStats(int period) {
+        long total = applicationRepository.countByPeriod(period);
+
+        long plan = applicationRepository.countByPeriodAndPart(period, Part.기획);
+        long design = applicationRepository.countByPeriodAndPart(period, Part.디자이너);
+        long frontend = applicationRepository.countByPeriodAndPart(period, Part.프론트엔드);
+        long backend = applicationRepository.countByPeriodAndPart(period, Part.백엔드);
+
+        return ApplicationStatsResponse.builder()
+                .period(period)
+                .totalCount(total)
+                .planCount(plan)
+                .designCount(design)
+                .frontendCount(frontend)
+                .backendCount(backend)
+                .build();
     }
 }
