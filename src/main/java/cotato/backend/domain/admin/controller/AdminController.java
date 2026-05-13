@@ -4,11 +4,13 @@ import cotato.backend.domain.admin.dto.AdminCreateRequest;
 import cotato.backend.domain.admin.dto.AdminResponse;
 import cotato.backend.domain.admin.dto.AdminUpdateRequest;
 import cotato.backend.domain.admin.service.AdminService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(name = "운영진", description = "운영진 관리 API")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/admins")

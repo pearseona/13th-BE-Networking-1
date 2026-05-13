@@ -3,10 +3,12 @@ package cotato.backend.domain.applicant.controller;
 import cotato.backend.domain.applicant.dto.ApplicantResponse;
 import cotato.backend.domain.applicant.dto.ApplicantUpdateRequest;
 import cotato.backend.domain.applicant.service.ApplicantService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(name = "지원자", description = "지원자 정보 관리 API")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/applicants")

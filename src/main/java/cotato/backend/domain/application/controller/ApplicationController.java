@@ -3,6 +3,7 @@ package cotato.backend.domain.application.controller;
 import cotato.backend.domain.application.dto.ApplicationRequest;
 import cotato.backend.domain.application.dto.ApplicationStatsResponse;
 import cotato.backend.domain.application.service.ApplicationService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -10,6 +11,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(name = "지원서", description = "지원서 등록, 조회 및 통계 API")
 @RestController
 @RequestMapping("/api/applications")
 @RequiredArgsConstructor
