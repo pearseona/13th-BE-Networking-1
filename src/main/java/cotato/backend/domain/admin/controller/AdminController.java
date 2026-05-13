@@ -1,8 +1,10 @@
 package cotato.backend.domain.admin.controller;
 
+import cotato.backend.domain.admin.dto.AdminCreateRequest;
 import cotato.backend.domain.admin.dto.AdminResponse;
 import cotato.backend.domain.admin.dto.AdminUpdateRequest;
 import cotato.backend.domain.admin.service.AdminService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,5 +29,12 @@ public class AdminController {
     ) {
         adminService.updateAdmin(adminId, request);
         return ResponseEntity.ok().build();
+    }
+
+    /* 운영진 등록 API */
+    @PostMapping
+    public ResponseEntity<Long> createAdmin(@Valid @RequestBody AdminCreateRequest request) {
+        Long adminId = adminService.createAdmin(request);
+        return ResponseEntity.ok(adminId);
     }
 }
