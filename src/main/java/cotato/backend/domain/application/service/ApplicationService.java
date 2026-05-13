@@ -6,6 +6,7 @@ import cotato.backend.domain.application.repository.ApplicationRepository;
 import cotato.backend.domain.entity.Applicant;
 import cotato.backend.domain.entity.Application;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +18,7 @@ public class ApplicationService {
     private final ApplicationRepository applicationRepository;
     private final ApplicantRepository applicantRepository;
 
-    /* 지원자 식별 로직 */
+    /* 지원서 등록 로직 */
     @Transactional
     public Long saveApplication(ApplicationRequest request) {
         // 휴대폰 번호로 기존 지원자가 있는지 확인
@@ -43,5 +44,13 @@ public class ApplicationService {
                 .build();
 
         return applicationRepository.save(application).getId();
+    }
+
+    /* 지원서 목록 조회 로직 */
+    public Object findAllApplications(Integer period, Pageable pageable) {
+        if (period != null) {
+            return applicationRepository.findAllByPeriod(period, pageable);
+        }
+        return applicationRepository.findAll(pageable);
     }
 }

@@ -18,6 +18,6 @@ public class ApplicationRequest {
     private int passion;
     private String phoneNumber;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime applicationTime;
 }

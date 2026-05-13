@@ -1,6 +1,8 @@
 // 지원서
 package cotato.backend.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import cotato.backend.domain.entity.enums.Part;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
@@ -21,7 +23,8 @@ public class Application {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "application_id")
+    @JoinColumn(name = "applicant_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Applicant applicant;
 
     @Min(value = 1, message = "기수는 1 이상이어야 합니다.")
@@ -38,6 +41,7 @@ public class Application {
 
     private int likeCount = 0;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime applicationTime;
 
     @Builder
