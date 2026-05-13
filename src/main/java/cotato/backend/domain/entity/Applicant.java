@@ -40,4 +40,10 @@ public class Applicant {
         this.phoneNumber = phoneNumber;
     }
 
+    public void updateInfo(String name, int age, String phoneNumber) {
+        this.name = name;
+        this.age = age;
+        this.phoneNumber = phoneNumber;
+    }
+
 }
