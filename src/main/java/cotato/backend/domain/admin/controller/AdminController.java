@@ -1,0 +1,31 @@
+package cotato.backend.domain.admin.controller;
+
+import cotato.backend.domain.admin.dto.AdminResponse;
+import cotato.backend.domain.admin.dto.AdminUpdateRequest;
+import cotato.backend.domain.admin.service.AdminService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/api/admins")
+public class AdminController {
+    private final AdminService adminService;
+
+    /* 운영진 상세 조회 API */
+    @GetMapping("/{adminId}")
+    public ResponseEntity<AdminResponse> getAdmin(@PathVariable Long adminId) {
+        return ResponseEntity.ok(adminService.getAdmin(adminId));
+    }
+
+    /* 운영진 정보 수정 */
+    @PatchMapping("/{adminId}")
+    public ResponseEntity<Void> updateAdmin(
+            @PathVariable Long adminId,
+            @RequestBody AdminUpdateRequest request
+    ) {
+        adminService.updateAdmin(adminId, request);
+        return ResponseEntity.ok().build();
+    }
+}

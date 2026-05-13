@@ -1,0 +1,1 @@
+INSERT INTO admin (name, age, phone_number, role) VALUES ('감자', 23, '01012345678', 'PRESIDENT');

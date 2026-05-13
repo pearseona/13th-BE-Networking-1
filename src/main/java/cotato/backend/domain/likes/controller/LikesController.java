@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 public class LikesController {
     private final LikesService likesService;
 
+    /* 좋아요 API */
     @PostMapping("/{applicationId}")
     public ResponseEntity<Void> addLike(
             @PathVariable Long applicationId,

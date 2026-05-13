@@ -18,6 +18,7 @@ public class LikesService {
     private final ApplicationRepository applicationRepository;
     private final AdminRepository adminRepository;
 
+    /* 좋아요 로직 */
     public void addLike(Long applicationId, Long adminId) {
         Application application = applicationRepository.findById(applicationId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 지원서가 없습니다."));
