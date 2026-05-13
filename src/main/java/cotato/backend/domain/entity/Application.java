@@ -58,4 +58,10 @@ public class Application {
     public void addLike() {
         this.likeCount++;
     }
+
+    public void removeLike() {
+        if (this.likeCount > 0) { // 0 미만으로 내려가지 않게 설정
+            this.likeCount--;
+        }
+    }
 }

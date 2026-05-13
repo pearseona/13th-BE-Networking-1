@@ -5,7 +5,8 @@ import cotato.backend.domain.entity.Application;
 import cotato.backend.domain.entity.Likes;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 public interface LikesRepository extends JpaRepository<Likes, Long> {
-    // 중복 체크를 위한 메서드
-    boolean existsByAdminAndApplication(Admin admin, Application application);
+    Optional<Likes> findByAdminAndApplication(Admin admin, Application application);
 }

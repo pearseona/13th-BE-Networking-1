@@ -13,11 +13,11 @@ public class LikesController {
 
     /* 좋아요 API */
     @PostMapping("/{applicationId}")
-    public ResponseEntity<Void> addLike(
+    public ResponseEntity<String> toggleLike(
             @PathVariable Long applicationId,
             @RequestParam Long adminId
     ) {
-        likesService.addLike(applicationId, adminId);
-        return ResponseEntity.ok().build();
+        String result = likesService.toggleLike(applicationId, adminId);
+        return ResponseEntity.ok(result);
     }
 }

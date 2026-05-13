@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -19,22 +21,26 @@ public class LikesService {
     private final AdminRepository adminRepository;
 
     /* 좋아요 로직 */
-    public void addLike(Long applicationId, Long adminId) {
+    public String toggleLike(Long applicationId, Long adminId) {
         Application application = applicationRepository.findById(applicationId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 지원서가 없습니다."));
 
         Admin admin = adminRepository.findById(adminId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 관리자가 없습니다."));
 
-        // 중복 좋아요 방지
-        if (likesRepository.existsByAdminAndApplication(admin, application)) {
-            throw new IllegalStateException("이미 좋아요를 누른 서류입니다.");
+        // 이미 좋아요를 눌렀는지 확인
+        Optional<Likes> existingLike = likesRepository.findByAdminAndApplication(admin, application);
+
+        if (existingLike.isPresent()) {
+            // 이미 있다면 취소 (삭제)
+            likesRepository.delete(existingLike.get());
+            application.removeLike();
+            return "좋아요 취소 완료";
+        } else {
+            // 없다면 추가
+            likesRepository.save(new Likes(admin, application));
+            application.addLike();
+            return "좋아요 추가 완료";
         }
-
-        // 좋아요 엔티티 저장
-        likesRepository.save(new Likes(admin, application));
-
-        // Application 엔티티의 likeCount 증가 (더티 체킹 이용)
-        application.addLike();
     }
 }
