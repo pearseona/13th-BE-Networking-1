@@ -2,8 +2,8 @@
 
 ## 1. 아키텍처 다이어그램
 
-```
-    flowchart TB
+```mermaid
+flowchart TB
     A[사용자 Client<br/>브라우저 / 모바일 앱 / Postman]
     -->|HTTPS 요청 443| B[54.180.240.149.nip.io<br/>퍼블릭 도메인 NIP.IO 기반 DNS]
 
@@ -20,13 +20,16 @@
     F -->|JDBC 연결| G
 
     G --> H[(MySQL Volume Mount<br/>데이터 영속성 저장)]
-
 ```
+
+--- 
 
 ## 2. 배포 URL
 
 - **기본 배포 주소** : https://54.180.240.149.nip.io
 - **Swagger API 명세서 주소** : https://54.180.240.149.nip.io/swagger-ui/index.html
+
+--- 
 
 ## 3. 배포된 Swagger 접속 화면 캡처
 
@@ -34,10 +37,27 @@
 
 ![img_1.png](img_1.png)
 
-## 4. GitHub Actions 성공 화면 캡처
-![img_2.png](img_2.png)
+--- 
 
-## 5. Dockerfile / Nginx 설정 내용
+## 4. GitHub Actions 성공 화면 캡처
+<img width="1298" height="1183" alt="image" src="https://github.com/user-attachments/assets/c1ec89ca-e9b8-4942-a9e5-097efdf8636b" />
+
+--- 
+
+## 5. 배포 파이프라인 및 브랜치 전략
+
+1. **개인 작업 및 1차 검증 (`pearseona` ➡️ `develop`)**
+   - 포크(Fork)해 온 개인 레포지토리의 `pearseona` 브랜치에서 기능을 구현.
+   - 구현 완료 후, 개인 레포지토리의 `develop` 브랜치로 Pull Request(PR)를 보냄.
+2. **CI/CD 자동화 파이프라인 통과**
+   - `develop` 브랜치에 코드가 머지되면 **GitHub Actions를 통해 CI/CD 프로세스가 동작**.
+   - 빌드(Build) 및 테스트 코드가 정상적으로 통과하는지 검사하여 코드의 안정성을 자동 검증.
+3. **메인 레포지토리 반영 (`develop` ➡️ `Cotato Develop Repository`)**
+   - 개인 레포지토리에서 빌드 및 테스트가 완벽히 성공한 것을 확인한 후, **Cotato 레포지토리로 최종 PR을 요청**하고 코드 리뷰를 진행.
+
+--- 
+
+## 6. Dockerfile / Nginx 설정 내용
 
 ### 1. Dockerfile (Spring Boot)
 
@@ -77,7 +97,9 @@ server {
 }
 ```
 
-## 6. 트러블 슈팅 노트
+--- 
+
+## 7. 트러블 슈팅 노트
 
 ### 📌 이슈 1: 도커 컴포즈 버전 호환성 에러
 
