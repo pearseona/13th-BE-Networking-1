@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/likes")
 public class LikesController {
+
     private final LikesService likesService;
 
     /* 좋아요 API */
