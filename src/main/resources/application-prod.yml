@@ -3,12 +3,12 @@ spring:
     name: networking2
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:cotato}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:password}
   sql:
     init:
-      mode: always
+      mode: never
   jpa:
     hibernate:
       ddl-auto: update
@@ -16,7 +16,6 @@ spring:
     properties:
       hibernate:
         format_sql: true
-    defer-datasource-initialization: true
 
 springdoc:
   swagger-ui:
